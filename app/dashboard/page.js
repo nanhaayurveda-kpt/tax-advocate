@@ -14,7 +14,7 @@ function CaseRow({ c, tone }) {
       : "bg-slate-100 text-slate-600";
 
   return (
-    
+    <a
       href={`/cases/${c.id}`}
       className="block rounded-xl border border-slate-200 bg-white p-4 active:scale-[0.99]"
     >
