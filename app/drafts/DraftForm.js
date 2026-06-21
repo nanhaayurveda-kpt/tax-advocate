@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useState } from "react";
 import { generateDraftAction } from "./actions";
 import { DRAFT_TYPES } from "@/lib/draftTypes";
 
@@ -14,6 +14,41 @@ export default function DraftForm() {
     generateDraftAction,
     initialState,
   );
+
+  const factsRef = useRef(null);
+  const recognitionRef = useRef(null);
+  const [listening, setListening] = useState(false);
+
+  function toggleVoice() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) {
+      alert("Voice input is not supported in this browser. Try Chrome.");
+      return;
+    }
+    if (listening) {
+      recognitionRef.current?.stop();
+      return;
+    }
+    const recognition = new SR();
+    recognition.lang = "en-IN";
+    recognition.interimResults = false;
+    recognition.continuous = true;
+    recognition.onresult = (e) => {
+      let text = "";
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        text += e.results[i][0].transcript;
+      }
+      if (factsRef.current) {
+        const cur = factsRef.current.value;
+        factsRef.current.value = cur ? cur + " " + text : text;
+      }
+    };
+    recognition.onend = () => setListening(false);
+    recognition.onerror = () => setListening(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+    setListening(true);
+  }
 
   function copyDraft() {
     if (state.draft) navigator.clipboard.writeText(state.draft);
@@ -36,8 +71,23 @@ export default function DraftForm() {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">Facts</label>
+          <div className="flex items-center justify-between">
+            <label className="text-sm font-medium text-slate-700">Facts</label>
+            <button
+              type="button"
+              onClick={toggleVoice}
+              className={
+                "rounded-lg px-3 py-1 text-xs font-medium active:scale-95 " +
+                (listening
+                  ? "bg-red-100 text-red-700"
+                  : "border border-slate-300 text-slate-700")
+              }
+            >
+              {listening ? "● Stop" : "🎤 Speak"}
+            </button>
+          </div>
           <textarea
+            ref={factsRef}
             name="facts"
             rows={6}
             required
