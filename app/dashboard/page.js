@@ -139,7 +139,7 @@ export default async function DashboardPage() {
       </section>
 
       <div className="flex gap-3 px-4 pt-6">
-        
+        <a
           href="/cases"
           className="flex-1 rounded-xl border border-slate-300 bg-white py-3 text-center text-sm font-medium text-slate-800 active:scale-[0.99]"
         >
