@@ -32,9 +32,17 @@ export default function ResearchForm() {
 
         <div>
           <label className="text-sm font-medium text-slate-700">Scope</label>
-          <select name="doctypes" defaultValue="" className={inputClass}>
-            <option value="">All India</option>
+          <select
+            name="doctypes"
+            defaultValue="itat,supremecourt"
+            className={inputClass}
+          >
+            <option value="itat,supremecourt">
+              ITAT + Supreme Court (recommended)
+            </option>
+            <option value="itat">ITAT only</option>
             <option value="supremecourt">Supreme Court only</option>
+            <option value="">All India (incl. High Courts)</option>
           </select>
         </div>
 
@@ -57,7 +65,7 @@ export default function ResearchForm() {
         <section className="mt-5">
           <h2 className="mb-2 text-sm font-semibold text-slate-700">Summary</h2>
           <pre className="whitespace-pre-wrap rounded-xl border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-800">
-{state.answer}
+            {state.answer}
           </pre>
         </section>
       )}
