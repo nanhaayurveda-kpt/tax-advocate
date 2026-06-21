@@ -73,7 +73,7 @@ export default function ResearchForm() {
                 key={s.tid || i}
                 className="rounded-xl border border-slate-200 bg-white p-4"
               >
-                
+                <a
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
