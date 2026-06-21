@@ -152,7 +152,7 @@ export default async function DashboardPage() {
           + New Case
         </a>
       </div>
-      
+
       <a
       href="/research"
         className="mx-4 mt-3 block rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-medium text-slate-800 active:scale-[0.99]"
@@ -165,7 +165,7 @@ export default async function DashboardPage() {
       >
         AI Draft Generator
       </a>
-      
+      <a
         href="/upcoming"
         className="mx-4 mt-3 block rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-medium text-slate-800 active:scale-[0.99]"
       >
